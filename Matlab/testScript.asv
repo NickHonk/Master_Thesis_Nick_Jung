@@ -1,0 +1,4 @@
+f1=@(z) 1-z;
+Integrand=@(z,zeta) f1(z)*zeta;
+f2=@(z) int(Integrand(z,zeta),0,z);
+f2(0.5)

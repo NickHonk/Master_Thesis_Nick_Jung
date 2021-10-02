@@ -1,0 +1,31 @@
+%% Get Q(z)
+ 
+%left eigenvectors of A:
+[V,E,W]=eig(A); %right EV, eigenvalues, left eigenvectors (columns are the vectors)
+
+Theta1=zeros(length(z_grid),nx,np);
+for i=1:nx
+    for m=1:length(z_grid)
+        Theta1(m,i,:)=W(:,i).'*B1*PhiMatrix(z_grid(m));
+    end
+end
+Theta_interp = numeric.interpolant({z_grid,1:nx,1:np},Theta1);
+Theta = @(z,i) reshape((Theta_interp.evaluate(z,1:nx,1:np)),[nx,np]);
+
+q_transpose1=zeros(length(z_grid),nx,np);
+for i=1:nx          
+    for m=1:length(z_grid)
+        for q=1:m
+            q_transpose(m,i,:)= q_transpose(m,i,:) -Theta(z_grid(q),i)/Lambda*expm(-E(i,i)/Lambda*(z-zeta));
+        end
+    end
+end
+
+% q_transpose_interp = numeric.interpolant({z_grid,1:np,1:np},PhiMatrix1);
+% PhiMatrix = @(z) reshape((PhiMatrix_interp.evaluate(z,1:np,1:np)),[np,np]);
+
+
+Winv=(W.')^-1;
+
+
+
