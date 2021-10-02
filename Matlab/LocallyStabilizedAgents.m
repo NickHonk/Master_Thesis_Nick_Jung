@@ -1,0 +1,1 @@
+%The locally stabilized agents (19a)

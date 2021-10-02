@@ -26,7 +26,11 @@ sigma_Eingang=0.1;
 mu_Ausgang=0.4;
 sigma_Ausgang=0.08;
 
-AgentSetup;
-DelayPDESetup;
-SolveLocalDecoupling;
-Controllability;
+AgentSetup; %Agenten aufsetzen (ODE's)
+DelayPDESetup; %Struktur für (15a/b) aufsetzen
+SolveLocalDecoupling; %Q(z)
+Controllability; %(A,B1) auf Steuerbarkeit überprüfen
+
+B1_local_stab1=Q1(1)*Lambda; %(20) - different if agents differ
+poles_local_stab=[-2,-3,-4];
+K1_local_stab1=place(A1,B1_local_stab1,poles_local_stab); %(19a) K1 - different if agents differ

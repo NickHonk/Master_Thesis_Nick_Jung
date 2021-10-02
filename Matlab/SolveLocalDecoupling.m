@@ -22,11 +22,11 @@ for i=1:nx
     end
 end
 q_transpose1_interp = numeric.interpolant({z_grid,1:nx,1:np},q_transpose_disc);
-q_transpose1 = @(z) reshape((q_transpose1_interp.evaluate(z,1:nx,1:np)),[nx,np]); %(24) - %different if agents differ
+q_transpose1 = @(z) reshape((q_transpose1_interp.evaluate(z,1:nx,1:np)),[nx,np]); %(24) - different if agents differ
 
 
-Winv1=(W1.')^-1; %Inverse der linken Eigenvektormatrix - %different if agents differ
-Q1=@(z) Winv1*q_transpose1(z); %(25) - %different if agents differ
+Winv1=(W1.')^-1; %Inverse der linken Eigenvektormatrix - different if agents differ
+Q1=@(z) Winv1*q_transpose1(z); %(25) - different if agents differ
 
 
 
