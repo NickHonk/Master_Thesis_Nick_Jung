@@ -1,14 +1,11 @@
 
-
 %Normalverteilung Einganstotzeit
 for i=1:np
     P_dichte_1_Eingang{i}=@(tau) sqrt((1/(2*pi*sigma_Eingang(i)^2)))*exp(-((tau-mu_Eingang(i))^2)/(2*sigma_Eingang(i)^2));
 end
     
 %Delay-PDE-states
-Phi1=zeros(length(z_grid),length(t_grid));
-Phi2=Phi1;
-Phi3=Phi1;
+Phi=zeros(length(z_grid),3*np,length(t_grid));
 
 %PhiMatrix is the coupling into the ODE in (15c)
 PhiMatrix_disc=zeros(length(z_grid),np,np);
@@ -22,25 +19,25 @@ PhiMatrix = @(z) reshape((PhiMatrix_interp.evaluate(z,1:np,1:np)),[np,np]); %sam
 
 
 %Input signals (needed just in the beginning, not in the closed loop)
-u1=sin(2*pi*t_grid);
+u=zeros(3,length(t_grid));
+
+u(1,:)=sin(2*pi*t_grid);
 
 tsprung=1;
-u2(t_grid(1)/dt+1:tsprung/dt-1)=0; %Sprung bei t=1;
-u2(tsprung/dt:t_grid(end)/dt)=1;
+u(2,(t_grid(1)/dt+1:tsprung/dt-1))=0; %Sprung bei t=1;
+u(2,(tsprung/dt:t_grid(end)/dt))=1;
 
-u3=t_grid; %Rampe
+u(3,:)=t_grid; %Rampe
 
 %Phi Initial conditions 
 Phi_0=0*z_grid;
 
-Phi1(:,1)=Phi_0;
-Phi2=Phi1;
-Phi3=Phi1;
+for i=1:3
+    Phi(:,i,1)=Phi_0;
+end
 
 %(15b)
-Phi1(end,1)=u1(1);
-Phi2(end,1)=u2(1);
-Phi3(end,1)=u3(1);
+Phi(end,:,1)=u(1);
 
 
 

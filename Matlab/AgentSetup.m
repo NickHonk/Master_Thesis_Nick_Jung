@@ -58,3 +58,5 @@ Abstand3=[12 0 0]; %Sollabszand zu virtuellem Führungsagent
 AW3=[7;0;0]; %Anfangswerte Zustand
 x3=zeros(nx,1)*t_grid; %Zustand
 
+%all agents stacked above one another:
+x=[x1;x2;x3];

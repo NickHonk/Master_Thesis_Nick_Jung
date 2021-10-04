@@ -17,7 +17,7 @@ q_transpose_disc=zeros(length(z_grid),nx,np);
 for i=1:nx          
     for m=1:length(z_grid)
         for q=1:m
-            q_transpose_disc(m,i,:)= q_transpose_disc(m,i,:) -Einheitsvek(:,i).'*Theta1(z_grid(q))/Lambda*expm(-E1(i,i)/Lambda*(z_grid(m)-z_grid(q)));
+            q_transpose_disc(m,i,:)= q_transpose_disc(m,i,:) - dz*(Einheitsvek(:,i).'*Theta1(z_grid(q))/Lambda*expm(-E1(i,i)/Lambda*(z_grid(m)-z_grid(q))));
         end
     end
 end

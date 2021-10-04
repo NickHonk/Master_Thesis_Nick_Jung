@@ -9,7 +9,7 @@ if(rank(ctrb(A1,B1))==nx)
     for i=1:nx       
         F_to_check=zeros(np,np);
         for m=1:length(z_grid) 
-           F_to_check(:,:)=F_to_check+PhiMatrix(z_grid(m))*expm(E1(i,i)/Lambda*(z_grid(m)-1)); 
+           F_to_check(:,:)=F_to_check+dz*(PhiMatrix(z_grid(m))*expm(E1(i,i)/Lambda*(z_grid(m)-1))); 
         end
         abs_det_F(i)=abs(det(F_to_check));
         if(rank(F_to_check)==np)            
